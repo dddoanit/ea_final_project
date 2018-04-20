@@ -9,6 +9,14 @@ import org.springframework.stereotype.Repository;
 import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.model.ProjectStatusEnum;
 
+
+/**
+* Project Repository
+* 
+* @author Binyam H
+*
+*/
+
 @Repository
 public interface ProjectRepository  extends JpaRepository<Project,Integer>{
 	List<Project>findByNameAllIgnoreCase(String name);

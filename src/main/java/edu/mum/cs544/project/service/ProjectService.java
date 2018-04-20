@@ -10,6 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.repository.ProjectRepository;
 
+
+/**
+* Project Services
+* 
+* @author Binyam H
+*
+*/
+
 @Service
 @Transactional
 public class ProjectService {
