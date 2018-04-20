@@ -7,12 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import edu.mum.cs544.project.config.SessionListener;
 import edu.mum.cs544.project.model.Role;
+import edu.mum.cs544.project.model.Skill;
 import edu.mum.cs544.project.model.User;
 import edu.mum.cs544.project.service.RoleService;
+import edu.mum.cs544.project.service.SkillService;
 import edu.mum.cs544.project.service.UserService;
 
 @Controller
@@ -28,15 +32,19 @@ public class MyAccountController {
 
   @Autowired
   private SessionListener sessionListener;
+  
+  @Autowired
+  private SkillService skillService;
 
   @Autowired
   private PasswordEncoder encoder;
 
   // Update Account
   @GetMapping({"/account/update"})
-  public String account(Model model) {
+  public String account(Model model, @ModelAttribute("skill") Skill skill) {
     User user = userService.findByEmail(sessionListener.getUser().getEmail());
     model.addAttribute("user", user);
+    model.addAttribute("skills", user.getSkills());
     return "myaccount/account";
   }
 
@@ -69,5 +77,33 @@ public class MyAccountController {
         "Your new account has been created sucessfully. Click here to login");
     return view;
   }
+  
+  @PostMapping("/skill/add")
+  public String addSkill(Model model, @ModelAttribute("skill") Skill skill) {
+    User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
+    List<Skill> skills = getAllSkills();
+    for (Skill selectedSkill: skills) {
+      if (selectedSkill.getId() == skill.getId()) {
+        existingUser.addSkill(selectedSkill);
+        break;
+      }
+    }
+    userService.save(existingUser);
+    return "redirect:/me/account/update";
+  }
+  
+  @RequestMapping(value = "/skill/remove/{id}", method = RequestMethod.POST)
+  public String removeSkill(@PathVariable("id") int id) {
+    User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
+    existingUser.removeSkills(id);
+    userService.save(existingUser);
+    return "redirect:/me/account/update";
+  }
 
+  
+  @ModelAttribute("allSkills")
+  public List<Skill> getAllSkills() {
+    return skillService.findAll();
+  }
+  
 }

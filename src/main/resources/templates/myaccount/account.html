@@ -12,6 +12,7 @@
 <body>
 	<div th:replace="fragments/menu :: menu"></div>
 	<div class="container">
+		<div class="row">
 		<div class="panel panel-default">
 			<div class="panel-heading"> <h3 class="panel-title">User</h3> </div>
 			<div class="panel-body">
@@ -65,6 +66,52 @@
 				  <input type="hidden" th:field="*{role}" value="2"/>
 				  <input type="submit" class="btn btn-primary" value="Update" />
 				</form>
+			</div>
+		</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default" th:if="${skills != null}">
+				<div class="panel-heading"> <h3 class="panel-title">Skills</h3> </div>
+				<div class="panel-body">
+				  	<form th:object="${skill}" th:action="@{/me/skill/add}" method="post">
+				  		<div class="form-group row">
+						    <label for="firstName" class="col-sm-2 col-form-label">Skill</label>
+						    <div class="col-sm-4">
+						      <select th:field="*{id}">
+						      	<option th:each="skill: ${allSkills}" th:value="${skill.id}" th:text="${skill.name}"></option>
+						      </select>
+						    </div>
+						    <div class="col-sm-4">
+						    	<button type="submit" class="btn btn-default" aria-label="Left Align">
+								  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+								</button>
+						    </div>
+					  	</div>
+					  	<!-- <input type="hidden" th:field="*{id}" /> -->
+				  	</form>
+					  <table class="table table-hover">
+						  <thead>
+						    <tr>
+						      <th scope="col">Name</th>
+						      <th></th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="skill : ${skills}">
+						      <td class="col-md-11" scope="row" th:text="${skill.name}">
+						      </td>
+						      <td class="col-md-1">
+						      	<form method="post" th:action="@{'/me/skill/remove/'+${skill.id}}">
+						      		<input type="submit" class="btn btn-danger" value="Remove"/>
+						      	</form>
+						      </td>
+						    </tr>
+						  </tbody>
+						</table>
+					<!-- </div> -->
+				</div>
+				<div class="panel-footer">
+				</div>
 			</div>
 		</div>
 		<div th:replace="fragments/footer :: footer"></div>

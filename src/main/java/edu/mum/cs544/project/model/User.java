@@ -106,6 +106,15 @@ public class User {
 	public void removeSkills(Skill skill) {
 		this.skills.remove(skill);
 	}
+	
+	public void removeSkills(int skillId) {
+      for (Skill skill: skills) {
+        if (skill.getId() == skillId) {
+          removeSkills(skill);
+          break;
+        }
+      }
+  }
 
 	public long getId() {
 		return id;
