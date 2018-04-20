@@ -57,7 +57,7 @@ public class UserManagementController {
   public String create(Model model, @ModelAttribute("user") User user) {
     String view = "redirect:/admin/user/";
     User existingUser = userService.findByEmail(user.getEmail());
-    if(existingUser != null) {
+    if(existingUser != null && user.getId() == 0) {
       model.addAttribute("errorMsg", "This email already exists. Please use another email.");
       view = "admin/user/create";
       return view;
