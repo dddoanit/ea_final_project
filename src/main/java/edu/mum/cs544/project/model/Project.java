@@ -4,7 +4,10 @@
 */
 package edu.mum.cs544.project.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,12 +15,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="PROJECT")
 public class Project {
   @Id
   @GeneratedValue
@@ -40,6 +42,9 @@ public class Project {
   @Column(name = "STATUS")
   @Enumerated(EnumType.STRING)
   private ProjectStatusEnum status;
+  
+  @OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+  private List<ProjectSkill> projectSkills = new ArrayList<>();
   
   
   public void setId(int id) {
@@ -96,6 +101,14 @@ public class Project {
 
   public int getId() {
     return id;
+  }
+
+  public List<ProjectSkill> getProjectSkills() {
+    return projectSkills;
+  }
+
+  public void setProjectSkills(List<ProjectSkill> projectSkills) {
+    this.projectSkills = projectSkills;
   }
 
 }
