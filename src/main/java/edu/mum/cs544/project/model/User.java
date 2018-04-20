@@ -19,120 +19,139 @@ import javax.persistence.Transient;
 @Table(name = "user")
 public class User {
 
-  @Id
-  @GeneratedValue
-  private long id;
+	@Id
+	@GeneratedValue
+	private long id;
 
-  private String name;
-  
-  @Column(unique = true)
-  private String email;
-  
-  private String phone;
+	private String name;
 
-  private String password;
-  private boolean enabled;
+	@Column(unique = true)
+	private String email;
 
-  @Embedded
-  private Address address;
-  
-  @Transient
-  private Integer role;
-  
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  @JoinTable(name = "user_roles",
-      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-  private List<Role> roles = new ArrayList<>();
+	private String phone;
 
-  public User() {
+	private String password;
+	private boolean enabled;
 
-  }
+	@Embedded
+	private Address address;
 
-  public String getEmail() {
-    return email;
-  }
+	@Transient
+	private Integer role;
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_roles", joinColumns = {
+			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "role_id", referencedColumnName = "id") })
+	private List<Role> roles = new ArrayList<>();
 
-  public String getPassword() {
-    return password;
-  }
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_skills", joinColumns = {
+			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "skill_id", referencedColumnName = "id") })
+	private List<Skill> skills = new ArrayList<>();
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+	public User() {
 
-  public boolean isEnabled() {
-    return enabled;
-  }
+	}
 
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-  }
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-  public List<Role> getRoles() {
-    return roles;
-  }
+	public String getPassword() {
+		return password;
+	}
 
-  public void addRole(Role role) {
-    if (!this.roles.contains(role)) {
-      this.roles.add(role);
-    }
-  }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-  public void removeRole(Role role) {
-    this.roles.remove(role);
-  }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-  public long getId() {
-    return id;
-  }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-  public void setId(long id) {
-    this.id = id;
-  }
+	public List<Role> getRoles() {
+		return roles;
+	}
 
-  public void clearRoles() {
-    for (Role role : roles) {
-      role.getUsers().clear();
-    }
-    roles.clear();
-  }
+	public void addRole(Role role) {
+		if (!this.roles.contains(role)) {
+			this.roles.add(role);
+		}
+	}
 
-  public Address getAddress() {
-    return address;
-  }
+	public void removeRole(Role role) {
+		this.roles.remove(role);
+	}
 
-  public void setAddress(Address address) {
-    this.address = address;
-  }
+	public List<Skill> getSkills() {
+		return skills;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public void addSkill(Skill skill) {
+		if (!this.skills.contains(skill)) {
+			this.skills.add(skill);
+		}
+	}
+	
+	public void removeSkills(Skill skill) {
+		this.skills.remove(skill);
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public long getId() {
+		return id;
+	}
 
-  public String getPhone() {
-    return phone;
-  }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
+	public void clearRoles() {
+		for (Role role : roles) {
+			role.getUsers().clear();
+		}
+		roles.clear();
+	}
 
-  public Integer getRole() {
-    return role;
-  }
+	public Address getAddress() {
+		return address;
+	}
 
-  public void setRole(Integer role) {
-    this.role = role;
-  }
-  
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
+	}
+
 }
