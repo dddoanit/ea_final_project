@@ -55,7 +55,6 @@ public class ProjectService {
   }
 
   public void removeSkill(ProjectSkill projectSkill) {
-    System.out.println("Skill size: " + projectSkillRepository.findAll().size());
     projectSkillRepository.delete(projectSkill);
   }
 
