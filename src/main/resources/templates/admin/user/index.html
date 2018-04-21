@@ -30,12 +30,12 @@
 			      </td>
 			      <td class="col-md-2" th:text="${user.email}"></td>
 			      <td class="col-md-1" th:text="${user.phone}"></td>
-			      <td class="col-md-5" th:text="${user.address.city} + ', ' + ${user.address.state} + ', '+ ${user.address.zipcode} + ', ' + ${user.address.country}"></td>
-			      <td class="col-md-1">
+			      <td class="col-md-5" th:text="${user.address}"></td>
+			      <!-- <td class="col-md-1">
 			      	<form method="post" th:action="@{'/admin/user/delete/'+${user.id}}">
 			      		<input type="submit" class="btn btn-danger" value="Delete"/>
 			      	</form>
-			      </td>
+			      </td> -->
 			    </tr>
 			  </tbody>
 			</table>
