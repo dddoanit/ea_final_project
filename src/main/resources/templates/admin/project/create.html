@@ -79,7 +79,7 @@
 				  		<div class="form-group row">
 						    <label for="firstName" class="col-sm-2 col-form-label">Skill</label>
 						    <div class="col-sm-3">
-						      <select th:field="*{id}">
+						      <select th:field="*{id}" class="form-control" >
 						      	<option th:each="skill: ${allSkills}" th:value="${skill.id}" th:text="${skill.name}"></option>
 						      </select>
 						    </div>
