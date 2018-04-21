@@ -67,7 +67,7 @@
 					  <tbody>
 					    <tr th:each="proj : ${projects}">
 					     <td class="col-md-2" scope="row">
-					      	<a th:href="@{/project/details/+${project.id}}" th:text="${proj.name}">
+					      	<a th:href="@{'/project/details/'+${proj.id}}" th:text="${proj.name}">
 					      	</a>
 					      </td>
 					      <td class="col-md-2" th:text="${proj.status}"></td>

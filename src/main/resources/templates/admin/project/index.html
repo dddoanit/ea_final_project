@@ -32,7 +32,7 @@
 					<tbody>
 						<tr th:each="project : ${projects}">
 							<td class="col-md-3" scope="row"><a
-								th:href="@{/project/details/+${project.id}}"
+								th:href="@{/admin/project/create(id=${project.id})}"
 								th:text="${project.name}"></a></td>
 							<td class="col-md-2" th:text="${project.location}"></td>
 							<td class="col-md-2" th:text="${project.startDate}"></td>
