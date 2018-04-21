@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import edu.mum.cs544.project.config.SessionListener;
+import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.model.Role;
 import edu.mum.cs544.project.model.Skill;
 import edu.mum.cs544.project.model.User;
+import edu.mum.cs544.project.service.ProjectService;
 import edu.mum.cs544.project.service.RoleService;
 import edu.mum.cs544.project.service.SkillService;
 import edu.mum.cs544.project.service.UserService;
@@ -35,6 +38,9 @@ public class MyAccountController {
   
   @Autowired
   private SkillService skillService;
+  
+  @Autowired
+  private ProjectService projectService;
 
   @Autowired
   private PasswordEncoder encoder;
@@ -111,7 +117,27 @@ public class MyAccountController {
     return skillService.findAll();
   }
   
-//  @PostMapping("/project/join")
-//  public String(Model model, )
+  @PostMapping("/project/join")
+  public String joinProject(Model model, @RequestParam(value = "projectId", required = false) Integer projectId) {
+    User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
+    Project project = projectService.findById(projectId);
+    existingUser.getProjects().add(project);
+    userService.save(existingUser);
+    return "redirect:/project/details/" + project.getId();
+  }
+  
+  @PostMapping("/project/unjoin")
+  public String unjoinProject(Model model, @RequestParam(value = "projectId", required = false) Integer projectId) {
+    User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
+    Project project = projectService.findById(projectId);
+    for (Project e: existingUser.getProjects()) {
+      if (e.getId() == project.getId()) {
+        existingUser.getProjects().remove(e);
+        break;
+      }
+    }
+    userService.save(existingUser);
+    return "redirect:/project/details/" + project.getId();
+  }
   
 }

@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import edu.mum.cs544.project.config.SessionListener;
 import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.model.ProjectSkill;
 import edu.mum.cs544.project.model.Skill;
+import edu.mum.cs544.project.model.User;
 import edu.mum.cs544.project.service.ProjectService;
 
 @Controller
@@ -19,6 +21,9 @@ public class ProjectDetailController {
 
   @Autowired
   private ProjectService projectService;
+  
+  @Autowired
+  private SessionListener sessionListener;
 
   @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
   public String showDetails(Model model, @PathVariable("id") int id) {
@@ -32,6 +37,14 @@ public class ProjectDetailController {
       skills.add(addedSkill);
     }
     model.addAttribute("skills", skills);
+    boolean isJoined = false;
+    for (User user: project.getUsers()) {
+      if (user.getId() == sessionListener.getUser().getId()) {
+        isJoined = true;
+        break;
+      }
+    }
+    model.addAttribute("isJoined", isJoined);
     return "project-details";
   }
 }

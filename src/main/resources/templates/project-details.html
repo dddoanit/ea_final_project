@@ -36,9 +36,14 @@
                   	</div>
 				 </div>
 				 <div class="panel-footer">
-					<form th:action="@{/me/project/join(projectId=${project.id})}" method="post">
+					<form th:action="@{/me/project/join(projectId=${project.id})}" method="post" th:if="${!isJoined}">
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
 						  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Join
+						</button>
+					</form>
+					<form th:action="@{/me/project/unjoin(projectId=${project.id})}" method="post" th:if="${isJoined}">
+						<button type="submit" class="btn btn-default" aria-label="Left Align">
+						  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Unjoin
 						</button>
 					</form>
 				</div>

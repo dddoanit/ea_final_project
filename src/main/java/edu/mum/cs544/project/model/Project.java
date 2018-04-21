@@ -1,7 +1,6 @@
 /**
-* Author: DatDoan
-* Created Date: Apr 7, 2018
-*/
+ * Author: DatDoan Created Date: Apr 7, 2018
+ */
 package edu.mum.cs544.project.model;
 
 import java.util.ArrayList;
@@ -27,35 +26,35 @@ public class Project {
   @GeneratedValue
   @Column(name = "ID")
   private int id;
-  
+
   private String name;
-  
+
   @Lob
   private String description;
-  
+
   private String location;
-  
+
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date startDate;
-  
+
   @Temporal(TemporalType.DATE)
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date endDate;
-  
+
   @Column(name = "STATUS")
   @Enumerated(EnumType.STRING)
   private ProjectStatusEnum status;
-  
-  @OneToMany(mappedBy="project", cascade = CascadeType.MERGE)
+
+  @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
   private List<ProjectSkill> projectSkills = new ArrayList<>();
-  
-  @OneToMany(mappedBy="project", cascade = CascadeType.ALL)
-  private List<Comment> projectComments = new ArrayList<>();  
-  
-  @ManyToMany(mappedBy="projects")
+
+  @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+  private List<Comment> projectComments = new ArrayList<>();
+
+  @ManyToMany(mappedBy = "projects")
   private List<User> users = new ArrayList<>();
-  
+
   public void setId(int id) {
     this.id = id;
   }
@@ -120,15 +119,20 @@ public class Project {
     this.description = description;
   }
 
-public List<Comment> getProjectComments() {
-	return projectComments;
-}
+  public List<Comment> getProjectComments() {
+    return projectComments;
+  }
 
-public void setProjectComments(List<Comment> projectComments) {
-	this.projectComments = projectComments;
-}
-  
-  
-  
+  public void setProjectComments(List<Comment> projectComments) {
+    this.projectComments = projectComments;
+  }
+
+  public List<User> getUsers() {
+    return users;
+  }
+
+  public void setUsers(List<User> users) {
+    this.users = users;
+  }
 
 }
