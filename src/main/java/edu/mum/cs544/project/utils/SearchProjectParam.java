@@ -4,12 +4,11 @@
 */
 package edu.mum.cs544.project.utils;
 
-import java.util.List;
-
 public class SearchProjectParam {
   private String name;
+  private String status;
   private String location;
-  private List<String> skills;
+  private String skills;
   public String getName() {
     return name;
   }
@@ -22,11 +21,17 @@ public class SearchProjectParam {
   public void setLocation(String location) {
     this.location = location;
   }
-  public List<String> getSkills() {
+  public String getSkills() {
     return skills;
   }
-  public void setSkills(List<String> skills) {
+  public void setSkills(String skills) {
     this.skills = skills;
+  }
+  public String getStatus() {
+    return status;
+  }
+  public void setStatus(String status) {
+    this.status = status;
   }
   
 }
