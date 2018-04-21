@@ -49,6 +49,7 @@ public class UserManagementController {
         updatedUser.setRole(user.getRoles().get(0).getId());
       }
       model.addAttribute("user", updatedUser);
+      model.addAttribute("skills", updatedUser.getSkills());
     }
     return "admin/user/create";
   }

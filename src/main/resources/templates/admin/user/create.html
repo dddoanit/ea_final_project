@@ -10,80 +10,105 @@
 <body>
 	<div th:replace="fragments/menu :: menu"></div>
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading"> <h3 class="panel-title">User</h3> </div>
-			<div class="panel-body">
-				<form th:object="${user}" th:action="@{/admin/user/create}" method="post">
-				  <div  th:if="${errorMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
-					  <span th:text="${errorMsg}"></span>
-					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					    <span aria-hidden="true">&times;</span>
-				  </button>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading"> <h3 class="panel-title">User</h3> </div>
+				<div class="panel-body">
+					<form th:object="${user}" th:action="@{/admin/user/create}" method="post">
+					  <div  th:if="${errorMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
+						  <span th:text="${errorMsg}"></span>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+					  <div class="form-group row">
+					    <label for="firstName" class="col-sm-2 col-form-label">Name</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" id="firstName" placeholder="Name" th:field="*{name}" required="true"/>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="email" class="col-sm-2 col-form-label">Email</label>
+					    <div class="col-sm-10">
+					      <input th:readonly="${param.id != null}" type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}" required="true"/>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" />
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="country" class="col-sm-2 col-form-label">Country</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" id="country" placeholder="Country" th:field="*{address.country}" />
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="city" class="col-sm-2 col-form-label">City</label>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control" id="city" placeholder="City" th:field="*{address.city}" />
+					    </div>
+					    <label for="state" class="col-sm-2 col-form-label">State</label>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control" id="state" placeholder="State" th:field="*{address.state}" />
+					    </div>
+					    <label for="zipcode" class="col-sm-2 col-form-label">Zip Code</label>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control" id="zipcode" placeholder="Zip Code" th:field="*{address.zipcode}" />
+					    </div>
+					  </div>
+					   <div class="form-group row">
+					    <label for="pw" class="col-sm-2 col-form-label">Password</label>
+					    <div class="col-sm-10">
+					      <input th:if="*{id} == 0" type="password" class="form-control" placeholder="Password" th:field="*{password}" required="required"/>
+					      <input th:if="*{id} != 0" type="password" class="form-control" placeholder="Password" th:field="*{password}"/>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					  	<label for="country" class="col-sm-2 col-form-label">Role</label>
+					    <div class="col-sm-10">
+					      <select th:field="*{role}" class="form-control" >
+					      	<option th:each="role: ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+					      </select>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					  	<label for="enabled" class="col-sm-2 col-form-label">Enable</label>
+					    <div class="col-sm-10">
+					      <input class="form-check-input" type="checkbox" id="enabled" th:field="*{enabled}" />
+					    </div>
+					  </div>
+					  <input type="hidden" th:field="*{id}" />
+					  <input type="submit" class="btn btn-primary" value="Create" th:if="*{id} == 0"/>
+					  <input type="submit" class="btn btn-primary" value="Update" th:if="*{id} != 0"/>
+					 </form>
+				 </div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default" th:if="${skills != null}">
+				<div class="panel-heading"> <h3 class="panel-title">Skills</h3> </div>
+				<div class="panel-body">
+					  <table class="table table-hover">
+						  <thead>
+						    <tr>
+						      <th scope="col">Name</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="skill : ${skills}">
+						      <td class="col-md-12" scope="row" th:text="${skill.name}">
+						      </td>
+						    </tr>
+						  </tbody>
+						</table>
+					<!-- </div> -->
 				</div>
-				  <div class="form-group row">
-				    <label for="firstName" class="col-sm-2 col-form-label">Name</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="firstName" placeholder="Name" th:field="*{name}" required="true"/>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="email" class="col-sm-2 col-form-label">Email</label>
-				    <div class="col-sm-10">
-				      <input th:readonly="${param.id != null}" type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}" required="true"/>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="phone" placeholder="Phone" th:field="*{phone}" />
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="country" class="col-sm-2 col-form-label">Country</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="country" placeholder="Country" th:field="*{address.country}" />
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="city" class="col-sm-2 col-form-label">City</label>
-				    <div class="col-sm-2">
-				      <input type="text" class="form-control" id="city" placeholder="City" th:field="*{address.city}" />
-				    </div>
-				    <label for="state" class="col-sm-2 col-form-label">State</label>
-				    <div class="col-sm-2">
-				      <input type="text" class="form-control" id="state" placeholder="State" th:field="*{address.state}" />
-				    </div>
-				    <label for="zipcode" class="col-sm-2 col-form-label">Zip Code</label>
-				    <div class="col-sm-2">
-				      <input type="text" class="form-control" id="zipcode" placeholder="Zip Code" th:field="*{address.zipcode}" />
-				    </div>
-				  </div>
-				   <div class="form-group row">
-				    <label for="pw" class="col-sm-2 col-form-label">Password</label>
-				    <div class="col-sm-10">
-				      <input th:if="*{id} == 0" type="password" class="form-control" placeholder="Password" th:field="*{password}" required="required"/>
-				      <input th:if="*{id} != 0" type="password" class="form-control" placeholder="Password" th:field="*{password}"/>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				  	<label for="country" class="col-sm-2 col-form-label">Role</label>
-				    <div class="col-sm-10">
-				      <select th:field="*{role}" class="form-control" >
-				      	<option th:each="role: ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-				      </select>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				  	<label for="enabled" class="col-sm-2 col-form-label">Enable</label>
-				    <div class="col-sm-10">
-				      <input class="form-check-input" type="checkbox" id="enabled" th:field="*{enabled}" />
-				    </div>
-				  </div>
-				  <input type="hidden" th:field="*{id}" />
-				  <input type="submit" class="btn btn-primary" value="Create" th:if="*{id} == 0"/>
-				  <input type="submit" class="btn btn-primary" value="Update" th:if="*{id} != 0"/>
-				 </form>
-			 </div>
+				<div class="panel-footer">
+				</div>
+			</div>
 		</div>
 		<div th:replace="fragments/footer :: footer"></div>
 	</div>
