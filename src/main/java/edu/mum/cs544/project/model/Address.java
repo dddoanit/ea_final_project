@@ -42,4 +42,25 @@ public class Address {
 		this.zipcode = zipcode;
 	}
 
+	@Override
+	public String toString() {
+		String addr = "";
+
+		if (country != null && !country.isEmpty()) {
+			addr += country;
+		}
+		
+		if (city != null && !city.isEmpty()) {
+			addr +=", " + city;
+		}
+		if (state != null && !state.isEmpty()) {
+			addr += ", " + state;
+		}
+		 
+		if (zipcode != null && !zipcode.isEmpty()) {
+			addr += ", " + zipcode;
+		} 
+		return addr;
+	}
+
 }
