@@ -112,6 +112,7 @@ public class MyAccountController {
     return "redirect:/me/account/update";
   }
 
+  
   @ModelAttribute("allSkills")
   public List<Skill> getAllSkills() {
     return skillService.findAll();
