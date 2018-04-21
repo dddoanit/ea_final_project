@@ -148,8 +148,7 @@
 						  </thead>
 						  <tbody>
 						    <tr th:each="cmt : ${comments}">
-						       <td class="col-md-5" scope="row" th:text="${cmt.commentText}">
-						      </td>
+						      <td class="col-md-5" scope="row" th:text="${cmt.commentText}"/>
 						      <td class="col-md-5" scope="row" th:text="${cmt.user.name}"/>
 						      <td class="col-md-5" scope="row" th:text="${cmt.date}"/>
 						      <td class="col-md-1">
