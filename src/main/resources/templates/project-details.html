@@ -12,7 +12,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="panel panel-default">
-				<div class="panel-heading"> <h3 class="panel-title" th:text="${project.name}"></h3> </div>
+				<div class="panel-heading"> <h3 class="panel-title" th:text="${project.name}"></h3>
+				 <h3 class="panel-title" th:text="${project.id}" hidden="true"></h3> </div>
 				<div class="panel-body">
                     <div class="row">
                   		<label for="status" class="col-sm-2 col-form-label">Status: </label>
@@ -54,6 +55,49 @@
 						      <td class="col-md-5" scope="row" th:text="${skill.name}">
 						      </td>
 						       <td class="col-md-5" scope="row" th:text="${skill.numRes}">
+						      </td>
+						    </tr>
+						  </tbody>
+						</table>
+				</div>
+				<div class="panel-footer">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading"> <h3 class="panel-title">Comments</h3> </div>
+				<div class="panel-body">
+				  	<form th:object="${comment}" th:action="@{/project/comment/add(projectId=${project.id})}" method="post">
+				  		<div class="form-group row">
+						     <div class="col-sm-10">
+						     <textarea rows="5" class="form-control" placeholder="Write a comment" th:field="*{commentText}">
+					    	  </textarea>
+						     </div>
+						    <div class="col-sm-2">
+						    	<button type="submit" class="btn btn-default" aria-label="Left Align">
+								  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+								</button>
+						    </div>
+					  	</div>
+				  	</form>
+					  <table class="table table-hover">
+						  <thead>
+						    <tr> 
+						      <th scope="col">Comment</th>
+						      <th>Volunteer</th>
+						      <th>Date</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="cmt : ${comments}">
+						      <td class="col-md-5" scope="row" th:text="${cmt.commentText}"/>
+						      <td class="col-md-5" scope="row" th:text="${cmt.user.name}"/>
+						      <td class="col-md-5" scope="row" th:text="${cmt.date}"/>
+						      <td class="col-md-1">
+						      	<form method="post" th:action="@{'/project/comment/remove/'+${cmt.id}(projectId=${project.id})}">
+						      		<input type="submit" class="btn btn-danger" value="Remove"/>
+						      	</form>
 						      </td>
 						    </tr>
 						  </tbody>
