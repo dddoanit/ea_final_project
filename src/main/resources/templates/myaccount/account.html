@@ -74,7 +74,7 @@
 			<div class="panel panel-default" th:if="${skills != null}">
 				<div class="panel-heading"> <h3 class="panel-title">Skills</h3> </div>
 				<div class="panel-body">
-				  	<form th:object="${skill}" th:action="@{/project/skill/add}" method="post">
+				  	<form th:object="${skill}" th:action="@{/me/skill/add}" method="post">
 				  		<div class="form-group row">
 						    <label for="firstName" class="col-sm-2 col-form-label">Skill</label>
 						    <div class="col-sm-4">
@@ -101,7 +101,7 @@
 						      <td class="col-md-11" scope="row" th:text="${skill.name}">
 						      </td>
 						      <td class="col-md-1">
-						      	<form method="post" th:action="@{'/project/skill/remove/'+${skill.id}}">
+						      	<form method="post" th:action="@{'/me/skill/remove/'+${skill.id}}">
 						      		<input type="submit" class="btn btn-danger" value="Remove"/>
 						      	</form>
 						      </td>
