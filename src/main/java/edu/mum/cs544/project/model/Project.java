@@ -15,6 +15,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,6 +52,9 @@ public class Project {
   
   @OneToMany(mappedBy="project", cascade = CascadeType.ALL)
   private List<Comment> projectComments = new ArrayList<>();  
+  
+  @ManyToMany(mappedBy="projects")
+  private List<User> users = new ArrayList<>();
   
   public void setId(int id) {
     this.id = id;
