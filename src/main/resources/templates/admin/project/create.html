@@ -10,64 +10,116 @@
 <body>
 	<div th:replace="fragments/menu :: menu"></div>
 	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading"> <h3 class="panel-title">Project</h3> </div>
-			<div class="panel-body">
-				<form th:object="${project}" th:action="@{/admin/project/create}" method="post">
-				  <div  th:if="${errorMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
-					  <span th:text="${errorMsg}"></span>
-					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					    <span aria-hidden="true">&times;</span>
-				  </button>
-				</div>
-				  <div class="form-group row">
-				    <label for="Name" class="col-sm-2 col-form-label">Project Name</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="projectName" placeholder="Name" th:field="*{name}" required="true"/>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="description" class="col-sm-2 col-form-label">Description</label>
-				    <div class="col-sm-10">
-				      <textarea rows="5" class="form-control" th:field="*{description}" required="true">
-				    	  </textarea>
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="location" class="col-sm-2 col-form-label">Location</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="location" placeholder="location" th:field="*{location}" required="true" />
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
-				    <div class="col-sm-2">
-							<input type="date" class="form-control" id="startDate"
-								placeholder="Start Date" th:field="*{startDate}" required="true"/>
-						</div>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading"> <h3 class="panel-title">Project</h3> </div>
+				<div class="panel-body">
+					<form th:object="${project}" th:action="@{/admin/project/create}" method="post">
+					  <div  th:if="${errorMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
+						  <span th:text="${errorMsg}"></span>
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+					  </button>
 					</div>
+					  <div class="form-group row">
+					    <label for="Name" class="col-sm-2 col-form-label">Project Name</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" id="projectName" placeholder="Name" th:field="*{name}" required="true"/>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="description" class="col-sm-2 col-form-label">Description</label>
+					    <div class="col-sm-10">
+					      <textarea rows="5" class="form-control" th:field="*{description}" required="true">
+					    	  </textarea>
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="location" class="col-sm-2 col-form-label">Location</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" id="location" placeholder="location" th:field="*{location}" required="true" />
+					    </div>
+					  </div>
+					  <div class="form-group row">
+					    <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
+					    <div class="col-sm-2">
+								<input type="date" class="form-control" id="startDate"
+									placeholder="Start Date" th:field="*{startDate}" required="true"/>
+							</div>
+						</div>
+						<div class="form-group row">
+					    <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
+					    <div class="col-sm-2">
+					      <input type="date" class="form-control" id="endDate" placeholder="End Date" th:field="*{endDate}" required="true" />
+					    </div>
+					  </div>
 					<div class="form-group row">
-				    <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
-				    <div class="col-sm-2">
-				      <input type="date" class="form-control" id="endDate" placeholder="End Date" th:field="*{endDate}" required="true" />
-				    </div>
-				  </div>
-				<div class="form-group row">
-						<label for="status" class="col-sm-2 col-form-label">Status</label>
-						<div class="col-sm-10">
-						  <select th:field="*{status}">
-								<option th:each="status : ${projectStatuses}"
-											 th:value="${status}" 
-											 th:text="${status}">
-								</option>
-						 </select>
-						 </div>
+							<label for="status" class="col-sm-2 col-form-label">Status</label>
+							<div class="col-sm-10">
+							  <select th:field="*{status}">
+									<option th:each="status : ${projectStatuses}"
+												 th:value="${status}" 
+												 th:text="${status}">
+									</option>
+							 </select>
+							 </div>
+					</div>
+					  <input type="hidden" th:field="*{id}" />
+					  <input type="submit" class="btn btn-primary" value="Create" th:if="*{id} == 0"/>
+					  <input type="submit" class="btn btn-primary" value="Update" th:if="*{id} != 0"/>
+					 </form>
+				 </div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default" th:if="${skills != null}">
+				<div class="panel-heading"> <h3 class="panel-title">Skills</h3> </div>
+				<div class="panel-body">
+				  	<form th:object="${skill}" th:action="@{/admin/project/skill/add(projectId=${project.id})}" method="post">
+				  		<div class="form-group row">
+						    <label for="firstName" class="col-sm-2 col-form-label">Skill</label>
+						    <div class="col-sm-3">
+						      <select th:field="*{id}">
+						      	<option th:each="skill: ${allSkills}" th:value="${skill.id}" th:text="${skill.name}"></option>
+						      </select>
+						    </div>
+						    <label for="firstName" class="col-sm-2 col-form-label">Num. Of Resource</label>
+						     <div class="col-sm-3">
+						     	<input type="number" class="form-control" id="phone" placeholder="Phone" th:field="*{numRes}" />
+						     </div>
+						    <div class="col-sm-2">
+						    	<button type="submit" class="btn btn-default" aria-label="Left Align">
+								  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+								</button>
+						    </div>
+					  	</div>
+				  	</form>
+					  <table class="table table-hover">
+						  <thead>
+						    <tr>
+						      <th scope="col">Name</th>
+						      <th scope="col">Num. Of Resource</th>
+						      <th></th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="skill : ${skills}">
+						      <td class="col-md-5" scope="row" th:text="${skill.name}">
+						      </td>
+						       <td class="col-md-5" scope="row" th:text="${skill.numRes}">
+						      </td>
+						      <td class="col-md-1">
+						      	<form method="post" th:action="@{'/admin/project/skill/remove/'+${skill.id}(projectId=${project.id})}">
+						      		<input type="submit" class="btn btn-danger" value="Remove"/>
+						      	</form>
+						      </td>
+						    </tr>
+						  </tbody>
+						</table>
 				</div>
-				  <input type="hidden" th:field="*{id}" />
-				  <input type="submit" class="btn btn-primary" value="Create" th:if="*{id} == 0"/>
-				  <input type="submit" class="btn btn-primary" value="Update" th:if="*{id} != 0"/>
-				 </form>
-			 </div>
+				<div class="panel-footer">
+				</div>
+			</div>
 		</div>
 		<div th:replace="fragments/footer :: footer"></div>
 	</div>

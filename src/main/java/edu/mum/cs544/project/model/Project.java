@@ -46,7 +46,7 @@ public class Project {
   @Enumerated(EnumType.STRING)
   private ProjectStatusEnum status;
   
-  @OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy="project", cascade = CascadeType.MERGE)
   private List<ProjectSkill> projectSkills = new ArrayList<>();
   
   
