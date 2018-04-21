@@ -62,6 +62,9 @@ public class UserManagementController {
       view = "admin/user/create";
       return view;
     } else {
+      if (user.getId() != 0 && user.getPassword().isEmpty()) {
+        user.setPassword(existingUser.getPassword());
+      }
       userService.save(user);
     }
     return view;

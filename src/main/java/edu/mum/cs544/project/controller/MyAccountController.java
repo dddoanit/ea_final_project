@@ -51,6 +51,9 @@ public class MyAccountController {
   @PostMapping("/account/update")
   public String updateAccount(Model model, @ModelAttribute("user") User user) {
     User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
+    if (user.getPassword() ==null || user.getPassword().isEmpty()) {
+      user.setPassword(existingUser.getPassword());
+    }
     user.setSkills(existingUser.getSkills());
     userService.save(user);
     return "redirect:/me/account/update";

@@ -34,27 +34,28 @@
 				    </div>
 				  </div>
 				  <div class="form-group row">
-				    <label for="location" class="col-sm-2 col-form-label">Location: City</label>
+				    <label for="location" class="col-sm-2 col-form-label">Location</label>
 				    <div class="col-sm-10">
 				      <input type="text" class="form-control" id="location" placeholder="location" th:field="*{location}" required="true" />
 				    </div>
 				  </div>
 				  <div class="form-group row">
 				    <label for="startDate" class="col-sm-2 col-form-label">Start Date</label>
-				    <div class="col-sm-10">
-				      <input type="date" class="form-control" id="startDate" placeholder="Start Date" th:field="*{startDate}" required="true" />
-				    </div>
+				    <div class="col-sm-2">
+							<input type="date" class="form-control" id="startDate"
+								placeholder="Start Date" th:field="*{startDate}" required="true"/>
+						</div>
 					</div>
 					<div class="form-group row">
 				    <label for="endDate" class="col-sm-2 col-form-label">End Date</label>
-				    <div class="col-sm-10">
+				    <div class="col-sm-2">
 				      <input type="date" class="form-control" id="endDate" placeholder="End Date" th:field="*{endDate}" required="true" />
 				    </div>
 				  </div>
 				<div class="form-group row">
 						<label for="status" class="col-sm-2 col-form-label">Status</label>
 						<div class="col-sm-10">
-						  <select>
+						  <select th:field="*{status}">
 								<option th:each="status : ${projectStatuses}"
 											 th:value="${status}" 
 											 th:text="${status}">

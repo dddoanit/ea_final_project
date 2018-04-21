@@ -23,7 +23,6 @@
 					      <th scope="col">Status</th>
 					      <th scope="col">Start Date</th>
 					      <th scope="col">End Date</th>
-					      <th scope="col">Status</th>
 					      <th scope="col">Location</th>
 					    </tr>
 					  </thead>
@@ -33,7 +32,6 @@
 					      	<a th:href="@{/project(id=${proj.id})}" th:text="${proj.name}">
 					      	</a>
 					      </td>
-					      <td class="col-md-2" th:text="${proj.name}"></td>
 					      <td class="col-md-2" th:text="${proj.status}"></td>
 					      <td class="col-md-2" th:text="${proj.startDate}"></td>
 					      <td class="col-md-2" th:text="${proj.endDate}"></td>

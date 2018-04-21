@@ -25,13 +25,8 @@ import edu.mum.cs544.project.service.ProjectService;
 @RequestMapping("/admin/project")
 public class ProjectController {
 
- 
-
   @Autowired
   private ProjectService projectService;
-
-  // @Autowired
-  // private PasswordEncoder encoder;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String list(Model model) {

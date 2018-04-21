@@ -22,7 +22,7 @@
 			  </thead>
 			  <tbody>
 			    <tr th:each="skill : ${skills}">
-			      <td class="col-md-3" scope="row">
+			      <td class="col-md-11" scope="row">
 			      	<a th:href="@{/admin/skill/create(id=${skill.id})}" th:text="${skill.name}"></a>
 			      </td>
 			      <td class="col-md-1">
