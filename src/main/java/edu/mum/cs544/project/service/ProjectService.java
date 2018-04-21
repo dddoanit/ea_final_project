@@ -4,8 +4,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import edu.mum.cs544.project.model.Comment;
 import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.model.ProjectSkill;
+import edu.mum.cs544.project.repository.CommentRepository;
 import edu.mum.cs544.project.repository.ProjectRepository;
 import edu.mum.cs544.project.repository.ProjectSearchRepository;
 import edu.mum.cs544.project.repository.ProjectSkillRepository;
@@ -28,6 +30,9 @@ public class ProjectService {
 
   @Autowired
   private ProjectSkillRepository projectSkillRepository;
+  
+  @Autowired
+  private CommentRepository commentRepository;
   
   @Autowired
   private ProjectSearchRepository projectSearchRepository;
@@ -60,6 +65,10 @@ public class ProjectService {
 
   public void removeSkill(ProjectSkill projectSkill) {
     projectSkillRepository.delete(projectSkill);
+  }
+
+  public void removeComment(Comment comment) {
+	  commentRepository.delete(comment);
   }
   
   public List<Project> search(SearchProjectParam params) {

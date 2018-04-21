@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -50,6 +51,9 @@ public class User {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "skill_id", referencedColumnName = "id") })
 	private List<Skill> skills = new ArrayList<>();
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Comment> comments = new ArrayList<>();
 
 	public User() {
 
@@ -103,18 +107,24 @@ public class User {
 		}
 	}
 	
+	public void addComment(Comment comment) {
+		if (!this.comments.contains(comment)) {
+			this.comments.add(comment);
+		}
+	}
+
 	public void removeSkills(Skill skill) {
 		this.skills.remove(skill);
 	}
-	
+
 	public void removeSkills(int skillId) {
-      for (Skill skill: skills) {
-        if (skill.getId() == skillId) {
-          removeSkills(skill);
-          break;
-        }
-      }
-  }
+		for (Skill skill : skills) {
+			if (skill.getId() == skillId) {
+				removeSkills(skill);
+				break;
+			}
+		}
+	}
 
 	public long getId() {
 		return id;
@@ -163,13 +173,20 @@ public class User {
 		this.role = role;
 	}
 
-  public void setRoles(List<Role> roles) {
-    this.roles = roles;
-  }
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
 
-  public void setSkills(List<Skill> skills) {
-    this.skills = skills;
-  }
-	
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 }

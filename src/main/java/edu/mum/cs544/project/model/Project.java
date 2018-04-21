@@ -49,6 +49,8 @@ public class Project {
   @OneToMany(mappedBy="project", cascade = CascadeType.MERGE)
   private List<ProjectSkill> projectSkills = new ArrayList<>();
   
+  @OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+  private List<Comment> projectComments = new ArrayList<>();  
   
   public void setId(int id) {
     this.id = id;
@@ -113,6 +115,16 @@ public class Project {
   public void setDescription(String description) {
     this.description = description;
   }
+
+public List<Comment> getProjectComments() {
+	return projectComments;
+}
+
+public void setProjectComments(List<Comment> projectComments) {
+	this.projectComments = projectComments;
+}
+  
+  
   
 
 }
