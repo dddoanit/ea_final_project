@@ -30,7 +30,8 @@ public class HomeController {
   }
   
   @PostMapping({"/search"})
-  public String search(Model model, @ModelAttribute("search") SearchProjectParam searchProjectParam) {
+  public String search(Model model, @ModelAttribute("search") SearchProjectParam params) {
+    model.addAttribute("projects", projectService.search(params));
     return "index";
   }
 

@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.model.ProjectSkill;
-import edu.mum.cs544.project.model.ProjectSkillId;
 import edu.mum.cs544.project.repository.ProjectRepository;
+import edu.mum.cs544.project.repository.ProjectSearchRepository;
 import edu.mum.cs544.project.repository.ProjectSkillRepository;
+import edu.mum.cs544.project.utils.SearchProjectParam;
 
 
 /**
@@ -27,6 +28,9 @@ public class ProjectService {
 
   @Autowired
   private ProjectSkillRepository projectSkillRepository;
+  
+  @Autowired
+  private ProjectSearchRepository projectSearchRepository;
 
   public Project save(Project project) {
     return projectRepository.save(project);
@@ -57,6 +61,9 @@ public class ProjectService {
   public void removeSkill(ProjectSkill projectSkill) {
     projectSkillRepository.delete(projectSkill);
   }
-
+  
+  public List<Project> search(SearchProjectParam params) {
+    return projectSearchRepository.search(params);
+  }
 
 }

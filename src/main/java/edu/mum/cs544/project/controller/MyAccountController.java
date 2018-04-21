@@ -65,6 +65,7 @@ public class MyAccountController {
     List<Role> roles = roleService.getAll();
     // set the default role for a new user
     user.addRole(roles.get(1));
+    user.setEnabled(true);
     
     return "myaccount/signup";
   }
