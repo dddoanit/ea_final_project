@@ -20,7 +20,7 @@ import edu.mum.cs544.project.model.ProjectStatusEnum;
 @Repository
 public interface ProjectRepository  extends JpaRepository<Project,Integer>{
 	List<Project>findByNameAllIgnoreCase(String name);
-	List<Project>findByDesciptionAllIgnoreCase(String desc);
+	List<Project>findByDescriptionAllIgnoreCase(String desc);
 	List<Project>findByLocationAllIgnoreCase(String loc);
 	List<Project>findByStartDateAllIgnoreCase(Date startDate);
 	List<Project>findByEndDateAllIgnoreCase(Date endDate);

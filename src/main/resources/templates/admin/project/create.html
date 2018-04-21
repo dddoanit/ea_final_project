@@ -29,7 +29,8 @@
 				  <div class="form-group row">
 				    <label for="description" class="col-sm-2 col-form-label">Description</label>
 				    <div class="col-sm-10">
-				      <input th:readonly="${param.id != null}" type="text" class="form-control" id="description" placeholder="Description" th:field="*{description}" required="true"/>
+				      <textarea rows="5" class="form-control" th:field="*{description}" required="true">
+				    	  </textarea>
 				    </div>
 				  </div>
 				  <div class="form-group row">
@@ -50,21 +51,17 @@
 				      <input type="date" class="form-control" id="endDate" placeholder="End Date" th:field="*{endDate}" required="true" />
 				    </div>
 				  </div>
-					<div class="form-group row">
-							<label for="status" class="col-sm-2 col-form-label">Status</label>
-				  <select>
-						<option th:each="status : ${T(edu.mum.cs544.project.ProjecrStatusEnum).values()}"
-									 th:value="${status}" 
-									 th:text="${status}">
-						</option>
-				 </select>
+				<div class="form-group row">
+						<label for="status" class="col-sm-2 col-form-label">Status</label>
+						<div class="col-sm-10">
+						  <select>
+								<option th:each="status : ${projectStatuses}"
+											 th:value="${status}" 
+											 th:text="${status}">
+								</option>
+						 </select>
+						 </div>
 				</div>
-				  <div class="form-group row">
-				  	<label for="enabled" class="col-sm-2 col-form-label">Enable</label>
-				    <div class="col-sm-10">
-				      <input class="form-check-input" type="checkbox" id="enabled" th:field="*{enabled}" />
-				    </div>
-				  </div>
 				  <input type="hidden" th:field="*{id}" />
 				  <input type="submit" class="btn btn-primary" value="Create" th:if="*{id} == 0"/>
 				  <input type="submit" class="btn btn-primary" value="Update" th:if="*{id} != 0"/>

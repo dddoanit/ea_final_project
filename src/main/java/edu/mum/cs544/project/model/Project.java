@@ -29,7 +29,7 @@ public class Project {
   private String name;
   
   @Lob
-  private String desciption;
+  private String description;
   
   private String location;
   
@@ -49,14 +49,6 @@ public class Project {
   
   public void setId(int id) {
     this.id = id;
-  }
-
-  public String getDesciption() {
-    return desciption;
-  }
-
-  public void setDesciption(String desciption) {
-    this.desciption = desciption;
   }
 
   public String getLocation() {
@@ -110,5 +102,14 @@ public class Project {
   public void setProjectSkills(List<ProjectSkill> projectSkills) {
     this.projectSkills = projectSkills;
   }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+  
 
 }

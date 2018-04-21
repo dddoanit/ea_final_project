@@ -51,7 +51,7 @@ public class ProjectService {
 		return null;
 	}
 	public Project findByDescription(String description) {
-		List<Project> projects = projectRepository.findByDesciptionAllIgnoreCase((description));
+		List<Project> projects = projectRepository.findByDescriptionAllIgnoreCase((description));
 		if (projects.size() == 1) {
 			return projects.get(0);
 		}

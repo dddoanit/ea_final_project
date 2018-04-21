@@ -163,4 +163,13 @@ public class User {
 		this.role = role;
 	}
 
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
+  }
+
+  public void setSkills(List<Skill> skills) {
+    this.skills = skills;
+  }
+	
+
 }

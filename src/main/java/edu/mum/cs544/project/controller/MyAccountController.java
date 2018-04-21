@@ -50,8 +50,10 @@ public class MyAccountController {
 
   @PostMapping("/account/update")
   public String updateAccount(Model model, @ModelAttribute("user") User user) {
+    User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
+    user.setSkills(existingUser.getSkills());
     userService.save(user);
-    return "redirect:/";
+    return "redirect:/me/account/update";
   }
 
   // Sign up

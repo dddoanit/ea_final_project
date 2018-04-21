@@ -1,7 +1,7 @@
 package edu.mum.cs544.project.controller;
 
+import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import edu.mum.cs544.project.model.Project;
-import edu.mum.cs544.project.model.Role;
-import edu.mum.cs544.project.model.User;
+import edu.mum.cs544.project.model.ProjectStatusEnum;
 import edu.mum.cs544.project.service.ProjectService;
 
 
@@ -73,5 +71,9 @@ public class ProjectController {
     return "redirect:/admin/project/";
   }
 
+  @ModelAttribute("projectStatuses")
+  public List<ProjectStatusEnum> productTypes() {
+      return Arrays.asList(ProjectStatusEnum.values());
+  }
  
 }
