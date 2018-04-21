@@ -32,7 +32,7 @@ public class ProjectSearchRepository {
     if (!StringUtils.isEmpty(params.getLocation())) {
       sql += " and LOWER(p.location) like CONCAT('%', LOWER(:location), '%')";
     }
-    if (!StringUtils.isEmpty(params.getSkills())) {
+    if (params.getSkills().size() >= 1) {
       sql += " and s.id IN :skills";
     }
 
@@ -47,7 +47,7 @@ public class ProjectSearchRepository {
     if (!StringUtils.isEmpty(params.getLocation())) {
       query.setParameter("location", params.getLocation());
     }
-    if (!StringUtils.isEmpty(params.getSkills())) {
+    if (params.getSkills().size() >= 1) {
       query.setParameter("skills", params.getSkills());
     }
     return query.getResultList();
