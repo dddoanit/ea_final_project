@@ -15,190 +15,188 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "user")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
-	@Id
-	@GeneratedValue
-	private long id;
+  @Id
+  @GeneratedValue
+  private long id;
 
-	private String name;
+  private String name;
 
-	@Column(unique = true)
-	private String email;
+  @Column(unique = true)
+  private String email;
 
-	private String phone;
+  private String phone;
 
-	private String password;
-	private boolean enabled;
+  private String password;
+  private boolean enabled;
 
-	@Embedded
-	private Address address;
+  @Embedded
+  private Address address;
 
-	@Transient
-	private Integer role;
+  @Transient
+  private Integer role;
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_roles", joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "role_id", referencedColumnName = "id") })
-	private List<Role> roles = new ArrayList<>();
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinTable(name = "user_roles",
+      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+      inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+  private List<Role> roles = new ArrayList<>();
 
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "user_skills", joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "skill_id", referencedColumnName = "id") })
-	private List<Skill> skills = new ArrayList<>();
-	
-	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_project", joinColumns = {
-            @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "project_id", referencedColumnName = "id") })
-    private List<Project> projects = new ArrayList<>();
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinTable(name = "user_skills",
+      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+      inverseJoinColumns = {@JoinColumn(name = "skill_id", referencedColumnName = "id")})
+  private List<Skill> skills = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Comment> comments = new ArrayList<>();
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinTable(name = "user_project",
+      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+      inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")})
+  private List<Project> projects = new ArrayList<>();
 
-	public User() {
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Comment> comments = new ArrayList<>();
 
-	}
+  public User() {
 
-	public String getEmail() {
-		return email;
-	}
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public String getEmail() {
+    return email;
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public String getPassword() {
+    return password;
+  }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+  public boolean isEnabled() {
+    return enabled;
+  }
 
-	public List<Role> getRoles() {
-		return roles;
-	}
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
 
-	public void addRole(Role role) {
-		if (!this.roles.contains(role)) {
-			this.roles.add(role);
-		}
-	}
+  public List<Role> getRoles() {
+    return roles;
+  }
 
-	public void removeRole(Role role) {
-		this.roles.remove(role);
-	}
+  public void addRole(Role role) {
+    if (!this.roles.contains(role)) {
+      this.roles.add(role);
+    }
+  }
 
-	public List<Skill> getSkills() {
-		return skills;
-	}
+  public void removeRole(Role role) {
+    this.roles.remove(role);
+  }
 
-	public void addSkill(Skill skill) {
-		if (!this.skills.contains(skill)) {
-			this.skills.add(skill);
-		}
-	}
-	
-	public void addComment(Comment comment) {
-		if (!this.comments.contains(comment)) {
-			this.comments.add(comment);
-		}
-	}
+  public List<Skill> getSkills() {
+    return skills;
+  }
 
-	public void removeSkills(Skill skill) {
-		this.skills.remove(skill);
-	}
+  public void addSkill(Skill skill) {
+    if (!this.skills.contains(skill)) {
+      this.skills.add(skill);
+    }
+  }
 
-	public void removeSkills(int skillId) {
-		for (Skill skill : skills) {
-			if (skill.getId() == skillId) {
-				removeSkills(skill);
-				break;
-			}
-		}
-	}
+  public void addComment(Comment comment) {
+    if (!this.comments.contains(comment)) {
+      this.comments.add(comment);
+    }
+  }
 
-	public long getId() {
-		return id;
-	}
+  public void removeSkills(Skill skill) {
+    this.skills.remove(skill);
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public void removeSkills(int skillId) {
+    for (Skill skill : skills) {
+      if (skill.getId() == skillId) {
+        removeSkills(skill);
+        break;
+      }
+    }
+  }
 
-	public void clearRoles() {
-		for (Role role : roles) {
-			role.getUsers().clear();
-		}
-		roles.clear();
-	}
+  public long getId() {
+    return id;
+  }
 
-	public Address getAddress() {
-		return address;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+  public void clearRoles() {
+    for (Role role : roles) {
+      role.getUsers().clear();
+    }
+    roles.clear();
+  }
 
-	public String getName() {
-		return name;
-	}
+  public Address getAddress() {
+    return address;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 
-	public String getPhone() {
-		return phone;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public Integer getRole() {
-		return role;
-	}
+  public String getPhone() {
+    return phone;
+  }
 
-	public void setRole(Integer role) {
-		this.role = role;
-	}
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+  public Integer getRole() {
+    return role;
+  }
 
-	public void setSkills(List<Skill> skills) {
-		this.skills = skills;
-	}
+  public void setRole(Integer role) {
+    this.role = role;
+  }
 
-	public List<Comment> getComments() {
-		return comments;
-	}
+  public void setRoles(List<Role> roles) {
+    this.roles = roles;
+  }
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+  public void setSkills(List<Skill> skills) {
+    this.skills = skills;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<Comment> comments) {
+    this.comments = comments;
+  }
 
   public List<Project> getProjects() {
     return projects;
@@ -207,5 +205,5 @@ public class User {
   public void setProjects(List<Project> projects) {
     this.projects = projects;
   }
-	
+
 }
