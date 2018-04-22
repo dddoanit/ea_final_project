@@ -39,9 +39,12 @@ public class ProjectController {
 
   @Autowired
   private ProjectService projectService;
-
+  
   @Autowired
   private SkillService skillService;
+  
+  @Autowired
+  private UserService userService;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String list(Model model) {
@@ -110,6 +113,7 @@ public class ProjectController {
       }
     }
     projectService.save(project);
+    userService.sendProjectMessage(skill.getId(), project);
     return "redirect:/admin/project/create?id=" + projectId;
   }
   

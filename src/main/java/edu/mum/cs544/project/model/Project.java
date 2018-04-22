@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Project {
@@ -46,12 +47,15 @@ public class Project {
   @Enumerated(EnumType.STRING)
   private ProjectStatusEnum status;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
   private List<ProjectSkill> projectSkills = new ArrayList<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
   private List<Comment> projectComments = new ArrayList<>();
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "projects")
   private List<User> users = new ArrayList<>();
 
