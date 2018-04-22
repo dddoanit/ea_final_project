@@ -50,6 +50,7 @@ public class MyAccountController {
   public String account(Model model, @ModelAttribute("skill") Skill skill) {
     User user = userService.findByEmail(sessionListener.getUser().getEmail());
     model.addAttribute("user", user);
+    model.addAttribute("projects", user.getProjects());
     model.addAttribute("skills", user.getSkills());
     return "myaccount/account";
   }
