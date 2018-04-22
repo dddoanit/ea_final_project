@@ -68,9 +68,8 @@ public class MyAccountController {
   // Sign up
   @GetMapping({"/account/signup"})
   public String signUp(Model model, @ModelAttribute("user") User user) {
-    List<Role> roles = roleService.getAll();
     // set the default role for a new user
-    user.addRole(roles.get(1));
+    user.addRole(roleService.findOne(2));
     user.setEnabled(true);
     
     return "myaccount/signup";

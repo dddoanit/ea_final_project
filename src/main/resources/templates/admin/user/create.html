@@ -81,6 +81,10 @@
 					    </div>
 					  </div>
 					  <input type="hidden" th:field="*{id}" />
+					  <input type="hidden" th:field="*{roles}"/>
+					  <input type="hidden" th:field="*{skills}"/>
+					  <input type="hidden" th:field="*{projects}"/>
+					  <input type="hidden" th:field="*{comments}"/>
 					  <input type="submit" class="btn btn-primary" value="Create" th:if="*{id} == 0"/>
 					  <input type="submit" class="btn btn-primary" value="Update" th:if="*{id} != 0"/>
 					 </form>

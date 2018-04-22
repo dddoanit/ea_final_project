@@ -45,8 +45,8 @@ public class UserManagementController {
       @RequestParam(value = "id", required = false) Long id) {
     if (id != null) {
       User updatedUser = userService.findById(id);
-      if (user.getRoles().size() == 1) {
-        updatedUser.setRole(user.getRoles().get(0).getId());
+      if (updatedUser.getRoles().size() == 1) {
+        updatedUser.setRole(updatedUser.getRoles().get(0).getId());
       }
       model.addAttribute("user", updatedUser);
       model.addAttribute("skills", updatedUser.getSkills());
@@ -66,6 +66,8 @@ public class UserManagementController {
       if (user.getId() != 0 && user.getPassword().isEmpty()) {
         user.setPassword(existingUser.getPassword());
       }
+      user.clearRoles();
+      user.addRole(roleService.findOne(user.getRole()));
       userService.save(user);
     }
     return view;

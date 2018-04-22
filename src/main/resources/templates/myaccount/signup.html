@@ -76,7 +76,10 @@
 					    </div>
 					  </div>
 					  <input type="hidden" th:field="*{enabled}" th:value="true" />
-					  <input type="hidden" th:field="*{role}" th:value="2"/>
+					  <input type="hidden" th:field="*{roles}"/>
+					  <input type="hidden" th:field="*{skills}"/>
+					  <input type="hidden" th:field="*{projects}"/>
+					  <input type="hidden" th:field="*{comments}"/>
 					  <input th:if="${infoMsg == null}" type="submit" class="btn btn-primary" value="Sign up" />
 					</form>
 				</div>
