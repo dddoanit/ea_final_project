@@ -62,6 +62,7 @@ public class MyAccountController {
       user.setPassword(existingUser.getPassword());
     }
     user.setSkills(existingUser.getSkills());
+    user.setProjects(existingUser.getProjects());
     userService.save(user);
     return "redirect:/me/account/update";
   }
