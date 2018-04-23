@@ -68,8 +68,9 @@ public class UserManagementController {
       }
       user.clearRoles();
       user.addRole(roleService.findOne(user.getRole()));
-      userService.sendToAdmin();
+      
       userService.save(user);
+      userService.sendToAdmin();
     }
     return view;
   }
