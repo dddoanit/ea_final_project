@@ -27,6 +27,7 @@ public class MessageListener {
 	public JavaMailSender emailSender;
 
 	public void receiveMessage(Map<String, String> message) {
+	  System.out.println("Received " + message);
 		String strarray[] = message.get("email_to").split(",");
 		SimpleMailMessage msg = new SimpleMailMessage();
 		try {
