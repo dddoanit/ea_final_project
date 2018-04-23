@@ -69,7 +69,7 @@ public class UserService {
     List<User> users = userRepository.findAdmin();
     int i = 0;
    
-    String recipients = u.getEmail();
+    String recipients = "";
 
     for (User user : users) {
       if (i != users.size() - 1) {
