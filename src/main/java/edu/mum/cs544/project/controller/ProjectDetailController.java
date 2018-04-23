@@ -22,6 +22,13 @@ import edu.mum.cs544.project.service.CommentService;
 import edu.mum.cs544.project.service.ProjectService;
 import edu.mum.cs544.project.service.UserService;
 
+/**
+ * Project Controller
+ * 
+ * @author Binyam H
+ *
+ */
+
 @Controller
 @RequestMapping("/project")
 public class ProjectDetailController {
