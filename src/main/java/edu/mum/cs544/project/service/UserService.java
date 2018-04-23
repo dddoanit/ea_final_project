@@ -93,7 +93,7 @@ public class UserService {
 
     map.put("email_title", "New Volunteer Registered! ");
     map.put("email_content", "Hello! My Name is: "+ u.getName()+
-    " I am newly registered volunteer, can you"
+    " , I am newly registered volunteer, can you "
     + "please assign me to a project? You can reach me through " + u.getEmail());
 
     rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
