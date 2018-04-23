@@ -2,7 +2,6 @@ package edu.mum.cs544.project.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,15 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import edu.mum.cs544.project.config.SessionListener;
 import edu.mum.cs544.project.model.Comment;
 import edu.mum.cs544.project.model.Project;
 import edu.mum.cs544.project.model.ProjectSkill;
 import edu.mum.cs544.project.model.ProjectStatusEnum;
 import edu.mum.cs544.project.model.Skill;
-import edu.mum.cs544.project.model.User;
-import edu.mum.cs544.project.service.CommentService;
 import edu.mum.cs544.project.service.ProjectService;
 import edu.mum.cs544.project.service.SkillService;
 import edu.mum.cs544.project.service.UserService;
@@ -30,7 +25,7 @@ import edu.mum.cs544.project.service.UserService;
 /**
  * Project Controller
  * 
- * @author Binyam H
+ * @author Binyam H && Dat Doan
  *
  */
 @Controller

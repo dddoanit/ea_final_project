@@ -25,7 +25,7 @@ import edu.mum.cs544.project.service.UserService;
 /**
  * Project Controller
  * 
- * @author Binyam H
+ * @author Binyam H, Dat Doan && Lwin Moe Aung
  *
  */
 

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import edu.mum.cs544.project.config.SessionListener;
 import edu.mum.cs544.project.model.Project;
-import edu.mum.cs544.project.model.Role;
 import edu.mum.cs544.project.model.Skill;
 import edu.mum.cs544.project.model.User;
 import edu.mum.cs544.project.service.ProjectService;
