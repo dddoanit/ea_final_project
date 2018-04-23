@@ -85,7 +85,7 @@ public class MyAccountController {
       return view;
     }
     userService.save(user);
-    userService.sendToAdmin();
+    userService.sendToAdmin(user);
     model.addAttribute("infoMsg",
         "Your new account has been created sucessfully. Click here to login");
     return view;

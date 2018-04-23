@@ -70,7 +70,7 @@ public class UserManagementController {
       user.addRole(roleService.findOne(user.getRole()));
       
       userService.save(user);
-      userService.sendToAdmin();
+      userService.sendToAdmin(user);
     }
     return view;
   }

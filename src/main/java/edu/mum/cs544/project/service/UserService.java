@@ -65,11 +65,11 @@ public class UserService {
   	}
   }
 
-  public void sendToAdmin() {
+  public void sendToAdmin(User u) {
     List<User> users = userRepository.findAdmin();
     int i = 0;
    
-    String recipients = "";
+    String recipients = u.getEmail();
 
     for (User user : users) {
       if (i != users.size() - 1) {
@@ -82,8 +82,8 @@ public class UserService {
     
     Map<String, String> map = new HashMap<>();
     map.put("email_to", recipients);
-    map.put("email_title", "New User Registered");
-    map.put("email_content", "I am New, Please Assign me to some Project");
+    map.put("email_title", "New User Registered, Name: "+u.getName());
+    map.put("email_content", "I am New, Please Assign me to some Project: You can reach me @"+u.getEmail());
     rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
   }
 
