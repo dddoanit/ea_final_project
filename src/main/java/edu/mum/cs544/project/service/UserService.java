@@ -82,8 +82,9 @@ public class UserService {
     
     Map<String, String> map = new HashMap<>();
     map.put("email_to", recipients);
-    map.put("email_title", "New User Registered, Name: "+u.getName());
-    map.put("email_content", "I am New, Please Assign me to some Project: You can reach me @"+u.getEmail());
+    map.put("email_title", "New User Registered, Name: ");
+    map.put("email_content", "I am New, My Name is: "+ u.getName()+
+    " Please Assign me to a project: You can reach through " + u.getEmail());
     rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
   }
 
