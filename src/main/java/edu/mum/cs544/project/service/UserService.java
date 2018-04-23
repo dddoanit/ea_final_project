@@ -3,12 +3,15 @@ package edu.mum.cs544.project.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import edu.mum.cs544.project.config.RabbitMqConfig;
 import edu.mum.cs544.project.model.Project;
+import edu.mum.cs544.project.model.Role;
 import edu.mum.cs544.project.model.User;
 import edu.mum.cs544.project.repository.UserRepository;
 
@@ -68,13 +71,16 @@ public class UserService {
 	   List<User>users=userRepository.findAll();
 	   for(User user:users)
 	   {
-		   if(user.getRole()==1)
+		   List<Role>roles=user.getRoles();
+		   for(Role role:roles) {
+		   if(role.getName().equals("ADMIN"))
 		   {
 			   Map<String, String> map = new HashMap<>();
 			      map.put("email_to", user.getEmail());
 			      map.put("email_title","New User Registered");
 			      map.put("email_content", "I am New, Please Assign me to some Project");
 			      rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
+		   }
 		   }
 	   }
    }
