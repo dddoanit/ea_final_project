@@ -27,10 +27,10 @@ public class MessageListener {
 	public JavaMailSender emailSender;
 
 	public void receiveMessage(Map<String, String> message) {
-		String strarray[] = message.get("email_to").split(",");
+		System.out.println("Email Sending .....");
 		SimpleMailMessage msg = new SimpleMailMessage();
 		try {
-			msg.setTo(strarray);
+			msg.setTo(message.get("email_to"));
 			msg.setSubject(message.get("email_title"));
 			msg.setText(message.get("email_content"));
 			emailSender.send(msg);
