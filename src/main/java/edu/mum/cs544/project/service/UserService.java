@@ -78,20 +78,39 @@ public class UserService {
    public void sendToAdmin()
    {
 	   List<User>users=userRepository.findAll();
+	   int i=0;
+	   String recipients="";
 	   for(User user:users)
-	   {
-		   List<Role>roles=user.getRoles();
+	   {  
+		   if(i!=users.size()-1)
+	   {		   
+		 List<Role>roles=user.getRoles();
 		   for(Role role:roles) {
 		   if(role.getName().equals("ADMIN"))
 		   {
-			   Map<String, String> map = new HashMap<>();
-			      map.put("email_to", user.getEmail());
-			      map.put("email_title","New User Registered");
-			      map.put("email_content", "I am New, Please Assign me to some Project");
-			      rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
+			   recipients += user.getEmail() + ", ";
+			 
 		   }
 		   }
 	   }
+		   else
+		   {
+			   List<Role>roles=user.getRoles();
+			   for(Role role:roles) {
+			   if(role.getName().equals("ADMIN"))
+			   {
+				   recipients += user.getEmail();
+				 
+			   }
+			   }
+			   
+		   }
+	   }
+	   Map<String, String> map = new HashMap<>();
+	      map.put("email_to", recipients);
+	      map.put("email_title","New User Registered");
+	      map.put("email_content", "I am New, Please Assign me to some Project");
+	      rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
    }
 
 }
