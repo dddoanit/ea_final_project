@@ -56,7 +56,6 @@ public class Project {
   @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
   private List<ProjectSkill> projectSkills = new ArrayList<>();
 
-  @JsonIgnore
   @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
   private List<Comment> projectComments = new ArrayList<>();
 
