@@ -12,4 +12,8 @@ public interface UserRepository  extends JpaRepository<User, Long>{
 	List<User> findByEmailAllIgnoreCase(String email);
 	@Query("select distinct u from User u join u.skills s where s.id = :skillId")
 	List<User> findBySkill(@Param("skillId") int skillId);
+	@Query("select distinct u from User u join u.roles r  where r.name ='ADMIN'")
+	List<User> findAdmin();
+	
+	
 }

@@ -74,29 +74,20 @@ public class UserService {
   }
 
   public void sendToAdmin() {
-    List<User> users = userRepository.findAll();
+    List<User> users = userRepository.findAdmin();
     int i = 0;
+   
     String recipients = "";
+
     for (User user : users) {
       if (i != users.size() - 1) {
-        List<Role> roles = user.getRoles();
-        for (Role role : roles) {
-          if (role.getName().equals("ADMIN")) {
-            recipients += user.getEmail() + ", ";
-
-          }
-        }
+        recipients += user.getEmail() + ", ";
       } else {
-        List<Role> roles = user.getRoles();
-        for (Role role : roles) {
-          if (role.getName().equals("ADMIN")) {
-            recipients += user.getEmail();
-
-          }
-        }
-
+        recipients += user.getEmail();
       }
+      i++;
     }
+    
     Map<String, String> map = new HashMap<>();
     map.put("email_to", recipients);
     map.put("email_title", "New User Registered");
