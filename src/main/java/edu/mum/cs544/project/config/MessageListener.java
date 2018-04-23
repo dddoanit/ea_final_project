@@ -27,7 +27,7 @@ public class MessageListener {
     System.out.println("Received " + message);
     SimpleMailMessage msg = new SimpleMailMessage();
     try {
-      msg.setTo(message.get("email_to"));
+      msg.setTo(message.get("email_to").split(","));
       msg.setSubject(message.get("email_title"));
       msg.setText(message.get("email_content"));
       emailSender.send(msg);
