@@ -25,11 +25,11 @@
 					    <label for="name" class="col-sm-2 col-form-label">Status</label>
 					    <div class="col-sm-4">
 					      <select th:field="*{status}" class="form-control" >
+								<option th:text="${'ALL'}" th:value="${'ALL'}"></option>
 								<option th:each="status : ${projectStatuses}"
 											 th:value="${status}" 
 											 th:text="${status}">
 								</option>
-								<option th:text="${'ALL'}" th:value="${'ALL'}"></option>
 							 </select>
 					    </div>
 					  </div>

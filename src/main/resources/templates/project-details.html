@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta charset="UTF-8" />
 <link rel="stylesheet" th:href="@{/modules/bootstrap/css/bootstrap.css}" />
@@ -37,7 +38,7 @@
                   	</div>
                    				
 				 </div>
-				 <div class="panel-footer">
+				 <div class="panel-footer" sec:authorize="isAuthenticated()">
 					<form th:action="@{/me/project/join(projectId=${project.id})}" method="post" th:if="${!isJoined}">
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
 						  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Join
@@ -45,7 +46,7 @@
 					</form>
 					<form th:action="@{/me/project/unjoin(projectId=${project.id})}" method="post" th:if="${isJoined}">
 						<button type="submit" class="btn btn-default" aria-label="Left Align">
-						  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Unjoin
+						  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Unjoin
 						</button>
 					</form>
 				</div>
@@ -80,7 +81,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"> <h3 class="panel-title">Comments</h3> </div>
 				<div class="panel-body">
-				  	<form th:object="${comment}" th:action="@{/project/comment/add(projectId=${project.id})}" method="post">
+				  	<form  sec:authorize="isAuthenticated()" th:object="${comment}" th:action="@{/project/comment/add(projectId=${project.id})}" method="post">
 				  		<div class="form-group row">
 						     <div class="col-sm-10">
 						     <textarea rows="5" class="form-control" placeholder="Write a comment" th:field="*{commentText}">
@@ -99,6 +100,7 @@
 						      <th scope="col">Comment</th>
 						      <th>Volunteer</th>
 						      <th>Date</th>
+						      <th sec:authorize="isAuthenticated()"></th>
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -106,11 +108,13 @@
 						      <td class="col-md-5" scope="row" th:text="${cmt.commentText}"/>
 						      <td class="col-md-5" scope="row" th:text="${cmt.user.name}"/>
 						      <td class="col-md-5" scope="row" th:text="${cmt.date}"/>
-						      <td class="col-md-1">
-						      	<form method="post" th:action="@{'/project/comment/remove/'+${cmt.id}(projectId=${project.id})}">
-						      		<input type="submit" class="btn btn-danger" value="Remove"/>
-						      	</form>
-						      </td>
+						      <td class="col-md-1" sec:authorize="isAuthenticated()">
+						      	<form th:if="${cmt.user.id} == ${@sessionListener.user.id}"
+										method="post"
+										th:action="@{'/project/comment/remove/'+${cmt.id}(projectId=${project.id})}">
+										<input type="submit" class="btn btn-danger" value="Remove" />
+									</form>
+								</td>
 						    </tr>
 						  </tbody>
 						</table>

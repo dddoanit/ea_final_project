@@ -52,10 +52,12 @@ public class ProjectDetailController {
     }
     model.addAttribute("skills", skills);
     boolean isJoined = false;
-    for (User user : project.getUsers()) {
-      if (user.getId() == sessionListener.getUser().getId()) {
-        isJoined = true;
-        break;
+    if (sessionListener.getUser() != null) {
+      for (User user : project.getUsers()) {
+        if (user.getId() == sessionListener.getUser().getId()) {
+          isJoined = true;
+          break;
+        }
       }
     }
     model.addAttribute("isJoined", isJoined);
