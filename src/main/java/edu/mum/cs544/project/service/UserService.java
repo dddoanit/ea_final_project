@@ -62,5 +62,21 @@ public class UserService {
       rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
     }
   }
+  
+   public void sendToAdmin()
+   {
+	   List<User>users=userRepository.findAll();
+	   for(User user:users)
+	   {
+		   if(user.getRole()==1)
+		   {
+			   Map<String, String> map = new HashMap<>();
+			      map.put("email_to", user.getEmail());
+			      map.put("email_title","New User Registered");
+			      map.put("email_content", "I am New, Please Assign me to some Project");
+			      rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
+		   }
+	   }
+   }
 
 }
