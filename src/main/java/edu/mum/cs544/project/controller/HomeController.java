@@ -23,7 +23,7 @@ public class HomeController {
   @Autowired
   private SkillService skillService;
 
-  @GetMapping({"/", "/index", "/home"})
+  @GetMapping({"/", "/index", "/home", "/search"})
   public String homePage(Model model, @ModelAttribute("search") SearchProjectParam searchProjectParam) {
     model.addAttribute("projects", projectService.findAll());
     return "index";

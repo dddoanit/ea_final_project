@@ -90,16 +90,22 @@ public class UserService {
     
     Map<String, String> map = new HashMap<>();
     map.put("email_to", recipients);
+<<<<<<< HEAD
 
+=======
+>>>>>>> f672ad08719a1b15d54f1986dd9ef96d543c58ad
     map.put("email_title", "New Volunteer Registered! ");
     map.put("email_content", "Hello! My Name is: "+ u.getName()+
     " I am newly registered volunteer, can you"
     + "please assign me to a project? You can reach me through " + u.getEmail());
+<<<<<<< HEAD
 
     map.put("email_title", "New User Registered");
     map.put("email_content", "I am New, My Name is: "+ u.getName()+
     " can you please assign me to a project, You can reach through " + u.getEmail());
 
+=======
+>>>>>>> f672ad08719a1b15d54f1986dd9ef96d543c58ad
     rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
   }
 

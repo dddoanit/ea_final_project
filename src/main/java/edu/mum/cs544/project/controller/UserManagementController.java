@@ -57,6 +57,10 @@ public class UserManagementController {
   @RequestMapping(value = "/create", method = RequestMethod.POST)
   public String create(Model model, @ModelAttribute("user") User user) {
     String view = "redirect:/admin/user/";
+    boolean isNew = false;
+    if (user.getId() == 0) {
+      isNew = true;
+    }
     User existingUser = userService.findByEmail(user.getEmail());
     if(existingUser != null && user.getId() == 0) {
       model.addAttribute("errorMsg", "This email already exists. Please use another email.");
@@ -70,7 +74,10 @@ public class UserManagementController {
       user.addRole(roleService.findOne(user.getRole()));
       
       userService.save(user);
-      userService.sendToAdmin(user);
+      if (isNew) {
+        userService.sendToAdmin(user);
+      }
+      
     }
     return view;
   }
