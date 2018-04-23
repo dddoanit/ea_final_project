@@ -57,13 +57,22 @@ public class UserService {
   
   public void sendProjectMessage(int skillId, Project project) {
     List<User> users = userRepository.findBySkill(skillId);
-    for (User user: users) {
+    int i = 0;
+    String recipients = "";
+    
+	for (User user : users) {
+		if (i != users.size() - 1) {
+			recipients += user.getEmail() + ", ";
+		} else {
+			recipients += user.getEmail();
+		}
+		i++;
+	}
       Map<String, String> map = new HashMap<>();
-      map.put("email_to", user.getEmail());
+      map.put("email_to", recipients);
       map.put("email_title", project.getName());
       map.put("email_content", project.getDescription());
       rabbitTemplate.convertAndSend(RabbitMqConfig.MESSAGE_QUEUE, map);
-    }
   }
   
    public void sendToAdmin()
