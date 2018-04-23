@@ -3,13 +3,15 @@ package edu.mum.cs544.project.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import edu.mum.cs544.project.config.RabbitMqConfig;
 import edu.mum.cs544.project.model.Project;
-import edu.mum.cs544.project.model.Role;
 import edu.mum.cs544.project.model.User;
 import edu.mum.cs544.project.repository.UserRepository;
 
@@ -17,6 +19,8 @@ import edu.mum.cs544.project.repository.UserRepository;
 @Transactional
 public class UserService {
 
+  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+  
   @Autowired
   private UserRepository userRepository;
 
@@ -53,7 +57,9 @@ public class UserService {
     return userRepository.findBySkill(skillId);
   }
 
+  @Async("asyncExecutor")
   public void sendProjectMessage(int skillId, Project project) {
+    logger.info("sendProjectMessage with Thread " + Thread.currentThread().getName());
     List<User> users = userRepository.findBySkill(skillId);
 
     for (User user : users) {
@@ -65,7 +71,9 @@ public class UserService {
   	}
   }
 
+  @Async("asyncExecutor")
   public void sendToAdmin(User u) {
+    logger.info("sendToAdmin with Thread " + Thread.currentThread().getName());
     List<User> users = userRepository.findAdmin();
     int i = 0;
    
