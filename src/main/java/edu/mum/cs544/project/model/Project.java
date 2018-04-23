@@ -56,7 +56,10 @@ public class Project {
   @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
   private List<ProjectSkill> projectSkills = new ArrayList<>();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cdbf1d4345b9430efb70d5ae132a612956888552
   @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
   private List<Comment> projectComments = new ArrayList<>();
 
