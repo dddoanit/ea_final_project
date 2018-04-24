@@ -6,11 +6,14 @@
 package edu.mum.cs544.project.config;
 
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import edu.mum.cs544.project.service.UserService;
 
 /**
  * Author: Lwin Moe Aung Modified Date: Apr 22, 2018 Comment: Modified receiveMessage() to send
@@ -20,11 +23,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessageListener {
 
+  private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+  
   @Autowired
   public JavaMailSender emailSender;
 
   public void receiveMessage(Map<String, String> message) {
-    System.out.println("Received " + message);
+    logger.info("Received " + message);
     SimpleMailMessage msg = new SimpleMailMessage();
     try {
       msg.setTo(message.get("email_to").split(","));
