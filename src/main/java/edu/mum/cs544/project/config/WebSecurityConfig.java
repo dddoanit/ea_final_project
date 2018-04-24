@@ -35,7 +35,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 				"/project/details/**", "/search/**", "/user/login",
                 				"/me/account/signup",
                 				"/api/**").permitAll()
-                .antMatchers("/cart/submit").hasAnyRole("USER", "ADMIN")
                 .antMatchers(
                     "me/account/update, /me/skill/add, /me/skill/remove/**, /me/project/join/**, /me/project/unjoin/**,/project/comment/remove/**, "
                         + " /project/comment/add/**").hasAnyRole("USER", "ADMIN")
