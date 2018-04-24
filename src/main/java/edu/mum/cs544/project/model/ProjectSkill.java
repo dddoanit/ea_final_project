@@ -12,7 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.IntSequenceGenerator.class, 
+		  property = "id")
 public class ProjectSkill {
   @EmbeddedId
   private ProjectSkillId pk = new ProjectSkillId();
@@ -22,7 +28,7 @@ public class ProjectSkill {
   @MapsId("projectId")
   private Project project;
   
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "skill_id")
   @MapsId("skillId")
   private Skill skill;
