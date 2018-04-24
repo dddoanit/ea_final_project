@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().usersByUsernameQuery(authQuery)
-//								.passwordEncoder(passwordEncoder())
+								.passwordEncoder(passwordEncoder())
 								.authoritiesByUsernameQuery(authorQuery)
 								.dataSource(dataSource);
 	}

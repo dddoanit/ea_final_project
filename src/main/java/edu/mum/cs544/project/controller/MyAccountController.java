@@ -57,8 +57,10 @@ public class MyAccountController {
   @PostMapping("/account/update")
   public String updateAccount(Model model, @ModelAttribute("user") User user) {
     User existingUser = userService.findByEmail(sessionListener.getUser().getEmail());
-    if (user.getPassword() ==null || user.getPassword().isEmpty()) {
+    if (user.getPassword() == null || user.getPassword().isEmpty()) {
       user.setPassword(existingUser.getPassword());
+    } else {
+      user.setPassword(encoder.encode(user.getPassword()));
     }
     user.setSkills(existingUser.getSkills());
     user.setProjects(existingUser.getProjects());
@@ -84,6 +86,7 @@ public class MyAccountController {
       model.addAttribute("errorMsg", "This email already exists. Please use another email.");
       return view;
     }
+    user.setPassword(encoder.encode(user.getPassword()));
     userService.save(user);
     userService.sendToAdmin(user);
     model.addAttribute("infoMsg",

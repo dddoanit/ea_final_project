@@ -2,6 +2,7 @@ package edu.mum.cs544.project.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,8 +32,8 @@ public class UserManagementController {
   @Autowired
   private UserService userService;
 
-  // @Autowired
-  // private PasswordEncoder encoder;
+   @Autowired
+   private PasswordEncoder encoder;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String list(Model model) {
@@ -69,6 +70,8 @@ public class UserManagementController {
     } else {
       if (user.getId() != 0 && user.getPassword().isEmpty()) {
         user.setPassword(existingUser.getPassword());
+      } else {
+        user.setPassword(encoder.encode(user.getPassword()));
       }
       user.clearRoles();
       user.addRole(roleService.findOne(user.getRole()));
