@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -22,6 +23,7 @@ public class Skill {
   @GeneratedValue
   private int id;
 
+  @NotNull
   private String name;
   @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
   private Set<User> users;
