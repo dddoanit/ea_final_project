@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
+import javax.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -27,6 +27,7 @@ public class Skill {
   private Set<User> users;
 
   @Transient
+  @Min(1)
   private int numRes;
 
   public Skill() {

@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/", "/home", "/index", "/modules/**", 
                 				"/css/**", "/search/**", "/user/login",
-                				"/project/details/**", "/search/**", "/user/login",
+                				"/project/details/**", "/user/login",
                 				"/me/account/signup",
                 				"/api/**").permitAll()
                 .antMatchers(

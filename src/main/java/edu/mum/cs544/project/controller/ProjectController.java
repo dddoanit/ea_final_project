@@ -3,9 +3,11 @@ package edu.mum.cs544.project.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,8 +97,11 @@ public class ProjectController {
   }
 
   @PostMapping("/skill/add")
-  public String addSkill(Model model, @ModelAttribute("skill") Skill skill,
-      @RequestParam(value = "projectId", required = true) Integer projectId) {
+  public String addSkill(Model model, @Valid Skill skill,
+      @RequestParam(value = "projectId", required = true) Integer projectId, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "admin/project/create";
+    }
     Project project = projectService.findById(projectId);
     List<Skill> skills = getAllSkills();
     for (Skill selectedSkill : skills) {
