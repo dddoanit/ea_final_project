@@ -43,6 +43,7 @@ public class ProjectService {
 
   public void delete(int id) {
     Project project = projectRepository.findOne(id);
+  
 
     projectRepository.delete(project);
   }
