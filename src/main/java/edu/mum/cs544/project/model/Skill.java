@@ -1,6 +1,8 @@
 package edu.mum.cs544.project.model;
 
 import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -23,13 +26,14 @@ public class Skill {
   @GeneratedValue
   private int id;
 
-  @NotNull
+  @NotEmpty(message= "Skill name is required.")
+  @Column(unique = true)
   private String name;
   @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
   private Set<User> users;
 
   @Transient
-  @Min(1)
+//  @Min(1)
   private int numRes;
 
   public Skill() {

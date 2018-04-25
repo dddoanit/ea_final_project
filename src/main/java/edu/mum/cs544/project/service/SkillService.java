@@ -32,5 +32,13 @@ public class SkillService {
 	public Skill findById(int id) {
 		return skillRepository.findOne(id);
 	}
+	
+	public Skill findByName(String name) {
+		Skill skill = skillRepository.findByName(name);
+		if (skill != null) {
+			return skill;
+		}
+		return null;
+	}
 
 }

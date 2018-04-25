@@ -14,16 +14,17 @@
 			<div class="panel-heading"> <h3 class="panel-title">Skill</h3> </div>
 			<div class="panel-body">
 				<form th:object="${skill}" th:action="@{/admin/skill/create}" method="post">
-				  <div  th:if="${errorMsg != null}" class="alert alert-warning alert-dismissible" role="alert">
+				  <div  th:if="${errorMsgSkill != null}" class="alert alert-warning alert-dismissible" role="alert">
 					  <span th:text="${errorMsgSkill}"></span>
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    <span aria-hidden="true">&times;</span>
 				  </button>
 				</div>
+				<div th:if="${#fields.hasErrors('name')}" class="alert alert-warning alert-dismissible" th:errors="*{name}"> </div>
 				  <div class="form-group row">
-				    <label for="firstName" class="col-sm-2 col-form-label">Name</label>
+				    <label for="skillName" class="col-sm-2 col-form-label">Name</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="firstName" placeholder="Name" th:field="*{name}" required="true"/>
+				      <input type="text" class="form-control" id="skillName" placeholder="Name" th:field="*{name}" />				      
 				    </div>
 				  </div>
 				  <input type="hidden" th:field="*{id}" />

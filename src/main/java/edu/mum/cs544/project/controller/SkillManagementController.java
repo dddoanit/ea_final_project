@@ -1,8 +1,11 @@
 package edu.mum.cs544.project.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,15 +35,20 @@ public class SkillManagementController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(Model model, @ModelAttribute("skill") Skill skill) {
+	public String create(Model model, @ModelAttribute("skill") Skill skill, @Valid Skill skillValidate, BindingResult bindingResult) {
 		String view = "redirect:/admin/skill/";
-		Skill existingSkill = skillService.findById(skill.getId());
-		if (existingSkill != null && skill.getId() == 0) {
-			model.addAttribute("errorMsgSkill", "This skill already exists");
-			view = "admin/skill/create";
-			return view;
+		if (bindingResult.hasErrors()) {
+			return "admin/skill/create";
 		} else {
-			skillService.save(skill);
+			Skill existingSkill = skillService.findByName(skill.getName());
+			if (existingSkill != null) {
+				model.addAttribute("errorMsgSkill", "This skill is already exist.");
+				view = "admin/skill/create";
+				return view;
+			}
+			else {
+				skillService.save(skill);
+			}
 		}
 		return view;
 	}
