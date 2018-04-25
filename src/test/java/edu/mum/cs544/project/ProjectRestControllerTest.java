@@ -32,7 +32,7 @@ public class ProjectRestControllerTest {
   public void test() {
     // Test insert
     Project project = new Project();
-    project.setName("Payment Calculation");
+    project.setName("Payment Calculation1111");
     project.setDescription("My Loan In MUM");
     Date d1 = new Date(2018, 11, 21);
     Date d2 = new Date(2018, 12, 21);
