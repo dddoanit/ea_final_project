@@ -36,10 +36,10 @@ public class ProjectController {
 
   @Autowired
   private ProjectService projectService;
-  
+
   @Autowired
   private SkillService skillService;
-  
+
   @Autowired
   private UserService userService;
 
@@ -56,8 +56,8 @@ public class ProjectController {
     if (id != null) {
       project = projectService.findById(id);
       List<Skill> skills = new ArrayList<>();
-      
-      for (ProjectSkill e: project.getProjectSkills()) {
+
+      for (ProjectSkill e : project.getProjectSkills()) {
         Skill addedSkill = e.getSkill();
         addedSkill.setNumRes(e.getNumResource());
         skills.add(addedSkill);
@@ -97,11 +97,8 @@ public class ProjectController {
   }
 
   @PostMapping("/skill/add")
-  public String addSkill(Model model, @Valid Skill skill,
-      @RequestParam(value = "projectId", required = true) Integer projectId, BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      return "admin/project/create";
-    }
+  public String addSkill(Model model, @ModelAttribute("skill") Skill skill,
+      @RequestParam(value = "projectId", required = true) Integer projectId) {
     Project project = projectService.findById(projectId);
     List<Skill> skills = getAllSkills();
     for (Skill selectedSkill : skills) {
@@ -116,8 +113,8 @@ public class ProjectController {
     userService.sendProjectMessage(skill.getId(), project);
     return "redirect:/admin/project/create?id=" + projectId;
   }
-  
-  
+
+
   @RequestMapping("/skill/remove/{skillId}")
   public String removeSkill(Model model, @PathVariable("skillId") Integer skillId,
       @RequestParam(value = "projectId", required = true) Integer projectId) {
@@ -135,5 +132,5 @@ public class ProjectController {
   public List<Skill> getAllSkills() {
     return skillService.findAll();
   }
-  
+
 }
