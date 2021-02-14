@@ -16,7 +16,7 @@ import edu.mum.cs544.project.utils.SearchProjectParam;
 
 @Controller
 public class HomeController {
-
+  // home Controller!
   @Autowired
   private ProjectService projectService;
   
